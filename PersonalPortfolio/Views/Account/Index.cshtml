@@ -1,0 +1,30 @@
+﻿@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<hr>
+
+
+<body>
+
+    @using System.Security.Claims
+
+    <h2>AJAX Portfolio Project</h2>
+
+    @if (User.Identity.IsAuthenticated)
+    {
+        <p>Yo @User.Identity.Name!</p>
+        <p>@Html.ActionLink("Add Blog Post", "Create", "Blog")</p>
+        <p>@Html.ActionLink("View Blog Posts", "Index", "Blog")</p>
+        @using (Html.BeginForm("LogOff", "Account"))
+        {
+            <input type="submit" class="btn btn-default" value="Log out" />
+        }
+    }
+
+    else
+    {
+        <p>@Html.ActionLink("Register", "Register")</p>
+        <p>@Html.ActionLink("Log in", "Login")</p>
+    }
+</body>

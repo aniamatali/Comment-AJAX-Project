@@ -1,0 +1,58 @@
+﻿@model IEnumerable<PersonalPortfolio.Models.BlogPost>
+
+@{
+    ViewData["Title"] = "Blog Posts";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<hr />
+
+
+<script type="text/javascript">
+  $(document).ready(function() {
+    $('.display-create').click(function () {
+      $.ajax({
+        type: 'GET',
+        dataType: 'html',
+        url: '@Url.Action("Create")',
+        success: function (result) {
+          $('#result1').html(result);
+        }
+      });
+    });
+   });
+</script>
+
+@using System.Security.Claims
+
+<table>
+    <tr>
+        <th>
+            Title of Post
+        </th>
+
+        <th></th>
+    </tr>
+
+    @foreach (var listBlogPost in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelBlogPost => listBlogPost.Title)
+            </td>
+
+            <td>
+
+                @Html.ActionLink("Details", "Details", new { id = listBlogPost.BlogPostId })
+
+
+            </td>
+        </tr>
+    }
+</table>
+
+<body>
+    <h4 class="display-create">Create New Post</h4>
+    <div id="result1"></div>
+</body>
+
+    @Html.ActionLink("Add New Post", "Create")
